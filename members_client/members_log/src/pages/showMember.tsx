@@ -17,8 +17,8 @@ export const ShowMember = () => {
         <div>
             {members.map((m) => (
                 <div key={m.id}>
-                    <p>{m.name}</p>
-                    <p>{m.classes_attended}</p>
+                    <p>Name: {m.name}</p>
+                    <p>Attended classes: {m.attend_classes}</p>
                     <button onClick={() => deleteMemberHandler(m.id)}>Delete member</button>
                 </div>
             ))}

@@ -4,17 +4,17 @@ export interface IMember extends RowDataPacket {
     id:number,
     name: string,
     attend: boolean,
-    classes_attended: number
+    attend_classes: number
 }
 
 export class Member {
     public id: number = Math.random();
     public attend: boolean = false;
-    public classes_attended: number = 0;
+    public attend_classes: number = 0;
 
     constructor (
         public name: string
     ) {}
 }
 
-export type updateMember = Pick<IMember, "attend">
+export type updateMember = Pick<IMember, "attend" | "attend_classes">

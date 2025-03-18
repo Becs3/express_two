@@ -4,6 +4,7 @@ import { NotFound } from "../pages/notFound"
 import { ShowMember } from "../pages/showMember"
 import { AddMember } from "../pages/addMember"
 import { LogMember } from "../pages/logMember"
+import { Home } from "../pages/home"
 
 export const Router = createBrowserRouter ([
     {
@@ -13,6 +14,10 @@ export const Router = createBrowserRouter ([
     children: [
         {
             path: "/",
+            element: <Home />
+        },
+        {
+            path: "/members",
             element: <ShowMember />
         },{
             path: "/logMember",

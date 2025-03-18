@@ -1,15 +1,26 @@
-import express from "express"
-import { connectDB } from "./config/db"
-const app = express()
-import router from "./routes/memberRoutes";
+import express from "express";
+import cors from "cors";
+import { connectDB } from "./config/db.js";
+import router from "./routes/memberRoutes.js";
 
-app.use(express.json())
-app.use("/members", router)
-
+const app = express();
 const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`server is running at http://localhost:${PORT}`)
-})
 
-
+// Connect to Database before starting the server
 connectDB();
+
+// Middleware
+app.use(cors({ origin: "http://localhost:5176" })); // Allow frontend access
+app.use(express.json());
+
+// Routes
+app.use("/members", router);
+
+app.get("/", (req, res) => {
+    res.json({ message: "Server is running" });
+});
+
+// Start Server (Only ONE `app.listen`)
+app.listen(PORT, () => {
+    console.log(`Server is running at http://localhost:${PORT}`);
+});

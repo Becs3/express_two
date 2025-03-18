@@ -30,7 +30,7 @@ export const getMemberById = async( req: Request, res: Response) => {
 }
 
 export const createMember = async(req: Request, res: Response) => {
-    const [name] = req.body;
+    const {name} = req.body;
 
     if(name === undefined) {
         res.status(500).json({message: "Required fields are missing", required_fields: ["name"]})
@@ -43,7 +43,7 @@ export const createMember = async(req: Request, res: Response) => {
         VALUES(?)
         `
         const result = await db.query(sql, [name])
-        res.json(result)
+        res.status(201).json({message: "member created", result })
     } catch (error) {
         res.status(500).json({error: logError})
     }
@@ -51,7 +51,7 @@ export const createMember = async(req: Request, res: Response) => {
 
 export const attendMember = async ( req: Request, res: Response) => {
 
-    const {attend} = req.body
+    const {attend, attend_classes} = req.body
     const {id} = req.params;
 
     if(attend === undefined) {
@@ -61,10 +61,10 @@ export const attendMember = async ( req: Request, res: Response) => {
     try {
     const sql = `
     UPDATE members
-    SET attend = ?
+    SET attend = ?, attend_classes = ?
     WHERE id = ? 
     `
-    const result = await db.query(sql, [attend, id])
+    const result = await db.query(sql, [attend, attend_classes,  id])
     res.json(result)
     } catch {
         res.status(500).json({error: logError})
